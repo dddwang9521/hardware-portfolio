@@ -25,6 +25,7 @@ function AnimatedRoutes() {
           <Route path="/skills" element={<Skills />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/tailwind-test" element={<TailwindTest />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </PageTransition>
     </AnimatePresence>

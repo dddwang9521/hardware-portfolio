@@ -26,6 +26,11 @@
           );
         }
       }(window.location))
+      
+      // Ensure home page loads by default
+      if (window.location.pathname === '/hardware-portfolio/' || window.location.pathname === '/hardware-portfolio') {
+        window.history.replaceState(null, null, '/hardware-portfolio/');
+      }
     </script>
   </head>
   <body>
