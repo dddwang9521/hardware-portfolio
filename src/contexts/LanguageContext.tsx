@@ -275,7 +275,8 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
   };
 
   const t = (key: string): string => {
-    return translations[language][key] || key;
+    const translation = translations[language] as Record<string, string>;
+    return translation[key] || key;
   };
 
   return (
