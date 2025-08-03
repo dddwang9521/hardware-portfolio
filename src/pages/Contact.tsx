@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const Contact = () => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -24,21 +26,21 @@ const Contact = () => {
     const newErrors: Record<string, string> = {};
     
     if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
+      newErrors.name = t('contact.nameRequired');
     }
     
     if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
+      newErrors.email = t('contact.emailRequired');
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email address';
+      newErrors.email = t('contact.emailInvalid');
     }
     
     if (!formData.subject.trim()) {
-      newErrors.subject = 'Subject is required';
+      newErrors.subject = t('contact.subjectRequired');
     }
     
     if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
+      newErrors.message = t('contact.messageRequired');
     }
     
     setErrors(newErrors);
@@ -75,7 +77,7 @@ const Contact = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          Get In Touch
+          {t('contact.title')}
         </motion.h1>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -87,13 +89,13 @@ const Contact = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">
-              Send a Message
+              {t('contact.subtitle')}
             </h2>
             
             <form onSubmit={handleSubmit} className="space-y-6" noValidate>
               <div>
                 <label htmlFor="name" className="block text-gray-700 dark:text-gray-300 font-medium mb-2">
-                  Name <span className="text-red-500" aria-label="required">*</span>
+                  {t('contact.name')} <span className="text-red-500" aria-label="required">*</span>
                 </label>
                 <input 
                   id="name"
@@ -118,7 +120,7 @@ const Contact = () => {
               
               <div>
                 <label htmlFor="email" className="block text-gray-700 dark:text-gray-300 font-medium mb-2">
-                  Email <span className="text-red-500" aria-label="required">*</span>
+                  {t('contact.email')} <span className="text-red-500" aria-label="required">*</span>
                 </label>
                 <input 
                   id="email"
@@ -143,7 +145,7 @@ const Contact = () => {
               
               <div>
                 <label htmlFor="subject" className="block text-gray-700 dark:text-gray-300 font-medium mb-2">
-                  Subject <span className="text-red-500" aria-label="required">*</span>
+                  {t('contact.subject')} <span className="text-red-500" aria-label="required">*</span>
                 </label>
                 <input 
                   id="subject"
@@ -168,7 +170,7 @@ const Contact = () => {
               
               <div>
                 <label htmlFor="message" className="block text-gray-700 dark:text-gray-300 font-medium mb-2">
-                  Message <span className="text-red-500" aria-label="required">*</span>
+                  {t('contact.message')} <span className="text-red-500" aria-label="required">*</span>
                 </label>
                 <textarea 
                   id="message"
@@ -197,7 +199,7 @@ const Contact = () => {
                 className="w-full px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-describedby={isSubmitting ? 'submitting-status' : undefined}
               >
-                {isSubmitting ? 'Sending...' : 'Send Message'}
+                {isSubmitting ? t('contact.sending') : t('contact.send')}
               </button>
               {isSubmitting && (
                 <p id="submitting-status" className="sr-only">

@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const Home = () => {
+  const { t } = useLanguage();
+  
   const projectCards = [
     {
       title: '3D Mapping System',
@@ -39,7 +42,7 @@ const Home = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          Hardware Engineer
+          {t('home.title')}
         </motion.h1>
         <motion.p 
           className="text-xl text-gray-600 dark:text-gray-300 mb-8"
@@ -47,7 +50,7 @@ const Home = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          Building the physical world, one circuit at a time
+          {t('home.subtitle')}
         </motion.p>
         <motion.div 
           className="flex justify-center gap-4 mb-12"
@@ -60,14 +63,14 @@ const Home = () => {
             className="px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
             aria-label="View all projects"
           >
-            View Projects
+            {t('home.viewProjects')}
           </Link>
           <Link 
             to="/contact"
             className="px-6 py-3 border-2 border-blue-500 text-blue-500 dark:text-blue-400 rounded-lg font-semibold hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
             aria-label="Contact me for opportunities"
           >
-            Contact Me
+            {t('home.contactMe')}
           </Link>
         </motion.div>
         

@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { LanguageProvider } from './contexts/LanguageContext';
 import Navbar from './components/Navbar';
 import SkipToContent from './components/SkipToContent';
 import Home from './pages/Home';
@@ -35,13 +36,15 @@ function AnimatedRoutes() {
 function App() {
   return (
     <ThemeProvider>
-      <Router>
-        <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-200">
-          <SkipToContent />
-          <Navbar />
-          <AnimatedRoutes />
-        </div>
-      </Router>
+      <LanguageProvider>
+        <Router>
+          <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-200">
+            <SkipToContent />
+            <Navbar />
+            <AnimatedRoutes />
+          </div>
+        </Router>
+      </LanguageProvider>
     </ThemeProvider>
   );
 }

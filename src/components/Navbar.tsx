@@ -1,18 +1,21 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../contexts/LanguageContext';
 import ThemeToggle from './ThemeToggle';
+import LanguageToggle from './LanguageToggle';
 
 const Navbar = () => {
   const location = useLocation();
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  const { t } = useLanguage();
 
   const navItems = [
-    { name: 'Home', path: '/', description: 'Go to home page' },
-    { name: 'About', path: '/about', description: 'Learn more about me' },
-    { name: 'Projects', path: '/projects', description: 'View my hardware projects' },
-    { name: 'Skills', path: '/skills', description: 'See my technical skills' },
-    { name: 'Contact', path: '/contact', description: 'Get in touch with me' },
+    { name: t('nav.home'), path: '/', description: 'Go to home page', key: 'home' },
+    { name: t('nav.about'), path: '/about', description: 'Learn more about me', key: 'about' },
+    { name: t('nav.projects'), path: '/projects', description: 'View my hardware projects', key: 'projects' },
+    { name: t('nav.skills'), path: '/skills', description: 'See my technical skills', key: 'skills' },
+    { name: t('nav.contact'), path: '/contact', description: 'Get in touch with me', key: 'contact' },
   ];
 
   return (
@@ -70,6 +73,7 @@ const Navbar = () => {
                 );
               })}
             </ul>
+            <LanguageToggle />
             <ThemeToggle />
           </div>
         </div>
