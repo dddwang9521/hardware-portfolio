@@ -26,8 +26,13 @@
           );
         }
       }(window.location))
+      
+      // Ensure home page loads by default
+      if (window.location.pathname === '/hardware-portfolio/' || window.location.pathname === '/hardware-portfolio') {
+        window.history.replaceState(null, null, '/hardware-portfolio/');
+      }
     </script>
-    <script type="module" crossorigin src="/hardware-portfolio/assets/index-4V2k_n3w.js"></script>
+    <script type="module" crossorigin src="/hardware-portfolio/assets/index-BELvhVOt.js"></script>
     <link rel="stylesheet" crossorigin href="/hardware-portfolio/assets/index-CU4H0Oik.css">
   </head>
   <body>
