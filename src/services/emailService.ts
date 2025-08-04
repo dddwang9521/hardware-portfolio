@@ -52,7 +52,7 @@ export const sendContactEmail = async (formData: ContactFormData): Promise<{ suc
 };
 
 // Fallback function for development/testing without EmailJS
-export const sendContactEmailFallback = async (formData: ContactFormData): Promise<{ success: boolean; message: string }> => {
+export const sendContactEmailFallback = async (_formData: ContactFormData): Promise<{ success: boolean; message: string }> => {
   // Simulate API call delay
   await new Promise(resolve => setTimeout(resolve, 1000));
   

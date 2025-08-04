@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { sendContactEmail, sendContactEmailFallback } from '../services/emailService';
-import type { ContactFormData } from '../services/emailService';
 import Toast from '../components/Toast';
 
 const Contact = () => {
