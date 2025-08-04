@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useLanguage } from '../contexts/LanguageContext';
+import { sendContactEmail, sendContactEmailFallback } from '../services/emailService';
+import type { ContactFormData } from '../services/emailService';
+import Toast from '../components/Toast';
 
 const Contact = () => {
-  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -12,6 +13,15 @@ const Contact = () => {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [toast, setToast] = useState<{
+    message: string;
+    type: 'success' | 'error' | 'info';
+    isVisible: boolean;
+  }>({
+    message: '',
+    type: 'info',
+    isVisible: false
+  });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -22,25 +32,29 @@ const Contact = () => {
     }
   };
 
+  const handleToastClose = () => {
+    setToast(prev => ({ ...prev, isVisible: false }));
+  };
+
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     
     if (!formData.name.trim()) {
-      newErrors.name = t('contact.nameRequired');
+      newErrors.name = 'Name is required';
     }
     
     if (!formData.email.trim()) {
-      newErrors.email = t('contact.emailRequired');
+      newErrors.email = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = t('contact.emailInvalid');
+      newErrors.email = 'Please enter a valid email address';
     }
     
     if (!formData.subject.trim()) {
-      newErrors.subject = t('contact.subjectRequired');
+      newErrors.subject = 'Subject is required';
     }
     
     if (!formData.message.trim()) {
-      newErrors.message = t('contact.messageRequired');
+      newErrors.message = 'Message is required';
     }
     
     setErrors(newErrors);
@@ -56,20 +70,55 @@ const Contact = () => {
     
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      // Try to send email using EmailJS
+      const result = await sendContactEmail(formData);
+      
+      if (result.success) {
+        // Show success message
+        setToast({
+          message: result.message,
+          type: 'success',
+          isVisible: true
+        });
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        // If EmailJS fails, try fallback
+        const fallbackResult = await sendContactEmailFallback(formData);
+        setToast({
+          message: fallbackResult.message,
+          type: fallbackResult.success ? 'success' : 'error',
+          isVisible: true
+        });
+        if (fallbackResult.success) {
+          setFormData({ name: '', email: '', subject: '', message: '' });
+        }
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setToast({
+        message: 'An error occurred while sending your message. Please try again later.',
+        type: 'error',
+        isVisible: true
+      });
+    } finally {
       setIsSubmitting(false);
-      alert('Thank you for your message! I will get back to you soon.');
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 1000);
+    }
   };
 
   return (
-    <main 
-      id="main-content"
-      className="min-h-screen bg-gray-100 dark:bg-gray-900 p-8 transition-colors duration-200"
-      role="main"
-    >
+    <>
+      <Toast
+        message={toast.message}
+        type={toast.type}
+        isVisible={toast.isVisible}
+        onClose={handleToastClose}
+      />
+      <main 
+        id="main-content"
+        className="min-h-screen bg-gray-100 dark:bg-gray-900 p-8 transition-colors duration-200"
+        role="main"
+      >
       <div className="max-w-4xl mx-auto">
         <motion.h1 
           className="text-4xl font-bold text-gray-800 dark:text-white mb-8 text-center"
@@ -77,7 +126,7 @@ const Contact = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          {t('contact.title')}
+          Get In Touch
         </motion.h1>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -89,13 +138,13 @@ const Contact = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">
-              {t('contact.subtitle')}
+              Send a Message
             </h2>
             
             <form onSubmit={handleSubmit} className="space-y-6" noValidate>
               <div>
                 <label htmlFor="name" className="block text-gray-700 dark:text-gray-300 font-medium mb-2">
-                  {t('contact.name')} <span className="text-red-500" aria-label="required">*</span>
+                  Name <span className="text-red-500" aria-label="required">*</span>
                 </label>
                 <input 
                   id="name"
@@ -120,7 +169,7 @@ const Contact = () => {
               
               <div>
                 <label htmlFor="email" className="block text-gray-700 dark:text-gray-300 font-medium mb-2">
-                  {t('contact.email')} <span className="text-red-500" aria-label="required">*</span>
+                  Email <span className="text-red-500" aria-label="required">*</span>
                 </label>
                 <input 
                   id="email"
@@ -145,7 +194,7 @@ const Contact = () => {
               
               <div>
                 <label htmlFor="subject" className="block text-gray-700 dark:text-gray-300 font-medium mb-2">
-                  {t('contact.subject')} <span className="text-red-500" aria-label="required">*</span>
+                  Subject <span className="text-red-500" aria-label="required">*</span>
                 </label>
                 <input 
                   id="subject"
@@ -170,7 +219,7 @@ const Contact = () => {
               
               <div>
                 <label htmlFor="message" className="block text-gray-700 dark:text-gray-300 font-medium mb-2">
-                  {t('contact.message')} <span className="text-red-500" aria-label="required">*</span>
+                  Message <span className="text-red-500" aria-label="required">*</span>
                 </label>
                 <textarea 
                   id="message"
@@ -199,7 +248,7 @@ const Contact = () => {
                 className="w-full px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-describedby={isSubmitting ? 'submitting-status' : undefined}
               >
-                {isSubmitting ? t('contact.sending') : t('contact.send')}
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>
               {isSubmitting && (
                 <p id="submitting-status" className="sr-only">
@@ -289,6 +338,7 @@ const Contact = () => {
         </div>
       </div>
     </main>
+    </>
   );
 };
 
