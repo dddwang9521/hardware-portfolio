@@ -79,11 +79,11 @@ const CircuitBackground = () => {
     };
 
     const handleTouchMove = (e: TouchEvent) => {
-      e.preventDefault(); // Prevent scrolling while touching
       const touch = e.touches[0];
       
       // Create new trace every few touch movements
       if (Math.random() < 0.4) { // Slightly more frequent on touch
+        e.preventDefault(); // Only prevent scrolling when creating lightning
         // Lightning traces with more variation
         const angle = Math.random() * Math.PI * 2;
         const distance = Math.random() * 100 + 30; // Slightly shorter for mobile
