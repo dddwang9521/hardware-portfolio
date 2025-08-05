@@ -19,8 +19,6 @@ interface CircuitTrace {
 
 const CircuitBackground = () => {
   const [traces, setTraces] = useState<CircuitTrace[]>([]);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const traceIdRef = useRef(0);
 
   // Generate a lightning path between two points
@@ -53,7 +51,6 @@ const CircuitBackground = () => {
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
       
       // Create new trace every few mouse movements
       if (Math.random() < 0.3) {
@@ -84,7 +81,6 @@ const CircuitBackground = () => {
     const handleTouchMove = (e: TouchEvent) => {
       e.preventDefault(); // Prevent scrolling while touching
       const touch = e.touches[0];
-      setMousePos({ x: touch.clientX, y: touch.clientY });
       
       // Create new trace every few touch movements
       if (Math.random() < 0.4) { // Slightly more frequent on touch
@@ -114,7 +110,7 @@ const CircuitBackground = () => {
 
     const handleTouchStart = (e: TouchEvent) => {
       const touch = e.touches[0];
-      setMousePos({ x: touch.clientX, y: touch.clientY });
+      
     };
 
     // Add event listeners for both mouse and touch
