@@ -4,6 +4,7 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import { LanguageProvider } from './contexts/LanguageContext';
 import Navbar from './components/Navbar';
 import SkipToContent from './components/SkipToContent';
+import CircuitBackground from './components/CircuitBackground';
 import Home from './pages/Home';
 import About from './pages/About';
 import Projects from './pages/Projects';
@@ -39,6 +40,7 @@ function App() {
       <LanguageProvider>
         <Router>
           <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-200">
+            <CircuitBackground />
             <SkipToContent />
             <Navbar />
             <AnimatedRoutes />

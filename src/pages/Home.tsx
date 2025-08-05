@@ -7,25 +7,25 @@ const Home = () => {
   
   const projectCards = [
     {
-      title: '3D Mapping System',
-      description: 'Time-of-flight sensor with stepper motor control',
+      title: t('home.project1.title'),
+      description: t('home.project1.description'),
       icon: '🗺️',
       path: '/projects',
-      ariaLabel: 'View 3D Mapping System project details'
+      ariaLabel: t('home.project1.ariaLabel')
     },
     {
-      title: 'Bluetooth Car',
-      description: 'STM32-based wireless control system',
+      title: t('home.project2.title'),
+      description: t('home.project2.description'),
       icon: '🚗',
       path: '/projects',
-      ariaLabel: 'View Bluetooth Car project details'
+      ariaLabel: t('home.project2.ariaLabel')
     },
     {
-      title: 'Drone Project',
-      description: 'Flight control system in development',
+      title: t('home.project3.title'),
+      description: t('home.project3.description'),
       icon: '🚁',
       path: '/projects',
-      ariaLabel: 'View Drone Project details'
+      ariaLabel: t('home.project3.ariaLabel')
     }
   ];
 
@@ -53,22 +53,22 @@ const Home = () => {
           {t('home.subtitle')}
         </motion.p>
         <motion.div 
-          className="flex justify-center gap-4 mb-12"
+          className="flex flex-col sm:flex-row justify-center gap-4 mb-12"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
           <Link 
             to="/projects"
-            className="px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
-            aria-label="View all projects"
+            className="px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 text-center"
+            aria-label={t('home.viewProjectsAria')}
           >
             {t('home.viewProjects')}
           </Link>
           <Link 
             to="/contact"
-            className="px-6 py-3 border-2 border-blue-500 text-blue-500 dark:text-blue-400 rounded-lg font-semibold hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
-            aria-label="Contact me for opportunities"
+            className="px-6 py-3 border-2 border-blue-500 text-blue-500 dark:text-blue-400 rounded-lg font-semibold hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 text-center"
+            aria-label={t('home.contactMeAria')}
           >
             {t('home.contactMe')}
           </Link>
@@ -76,7 +76,7 @@ const Home = () => {
         
         <section aria-labelledby="featured-projects-heading">
           <h2 id="featured-projects-heading" className="sr-only">
-            Featured Projects
+            {t('home.featuredProjects')}
           </h2>
           <motion.div 
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12"
@@ -84,7 +84,7 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
             role="list"
-            aria-label="Featured projects"
+            aria-label={t('home.featuredProjects')}
           >
             {projectCards.map((project, index) => (
               <motion.article

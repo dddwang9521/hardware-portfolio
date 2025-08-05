@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../contexts/LanguageContext';
 import { sendContactEmail, sendContactEmailFallback } from '../services/emailService';
 import Toast from '../components/Toast';
 
 const Contact = () => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -39,21 +41,21 @@ const Contact = () => {
     const newErrors: Record<string, string> = {};
     
     if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
+      newErrors.name = t('contact.nameRequired');
     }
     
     if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
+      newErrors.email = t('contact.emailRequired');
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email address';
+      newErrors.email = t('contact.emailInvalid');
     }
     
     if (!formData.subject.trim()) {
-      newErrors.subject = 'Subject is required';
+      newErrors.subject = t('contact.subjectRequired');
     }
     
     if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
+      newErrors.message = t('contact.messageRequired');
     }
     
     setErrors(newErrors);
@@ -96,7 +98,7 @@ const Contact = () => {
     } catch (error) {
       console.error('Form submission error:', error);
       setToast({
-        message: 'An error occurred while sending your message. Please try again later.',
+        message: t('contact.error'),
         type: 'error',
         isVisible: true
       });
@@ -125,7 +127,7 @@ const Contact = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          Get In Touch
+          {t('contact.title')}
         </motion.h1>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -137,13 +139,13 @@ const Contact = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">
-              Send a Message
+              {t('contact.sendMessage')}
             </h2>
             
             <form onSubmit={handleSubmit} className="space-y-6" noValidate>
               <div>
                 <label htmlFor="name" className="block text-gray-700 dark:text-gray-300 font-medium mb-2">
-                  Name <span className="text-red-500" aria-label="required">*</span>
+                  {t('contact.name')} <span className="text-red-500" aria-label="required">*</span>
                 </label>
                 <input 
                   id="name"
@@ -154,7 +156,7 @@ const Contact = () => {
                   className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
                     errors.name ? 'border-red-500' : 'border-gray-300'
                   }`}
-                  placeholder="Your Name"
+                  placeholder={t('contact.namePlaceholder')}
                   aria-describedby={errors.name ? 'name-error' : undefined}
                   aria-invalid={!!errors.name}
                   required
@@ -168,7 +170,7 @@ const Contact = () => {
               
               <div>
                 <label htmlFor="email" className="block text-gray-700 dark:text-gray-300 font-medium mb-2">
-                  Email <span className="text-red-500" aria-label="required">*</span>
+                  {t('contact.email')} <span className="text-red-500" aria-label="required">*</span>
                 </label>
                 <input 
                   id="email"
@@ -179,7 +181,7 @@ const Contact = () => {
                   className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
                     errors.email ? 'border-red-500' : 'border-gray-300'
                   }`}
-                  placeholder="your.email@example.com"
+                  placeholder={t('contact.emailPlaceholder')}
                   aria-describedby={errors.email ? 'email-error' : undefined}
                   aria-invalid={!!errors.email}
                   required
@@ -193,7 +195,7 @@ const Contact = () => {
               
               <div>
                 <label htmlFor="subject" className="block text-gray-700 dark:text-gray-300 font-medium mb-2">
-                  Subject <span className="text-red-500" aria-label="required">*</span>
+                  {t('contact.subject')} <span className="text-red-500" aria-label="required">*</span>
                 </label>
                 <input 
                   id="subject"
@@ -204,7 +206,7 @@ const Contact = () => {
                   className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
                     errors.subject ? 'border-red-500' : 'border-gray-300'
                   }`}
-                  placeholder="Subject of your message"
+                  placeholder={t('contact.subjectPlaceholder')}
                   aria-describedby={errors.subject ? 'subject-error' : undefined}
                   aria-invalid={!!errors.subject}
                   required
@@ -218,7 +220,7 @@ const Contact = () => {
               
               <div>
                 <label htmlFor="message" className="block text-gray-700 dark:text-gray-300 font-medium mb-2">
-                  Message <span className="text-red-500" aria-label="required">*</span>
+                  {t('contact.message')} <span className="text-red-500" aria-label="required">*</span>
                 </label>
                 <textarea 
                   id="message"
@@ -229,7 +231,7 @@ const Contact = () => {
                   className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-vertical dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
                     errors.message ? 'border-red-500' : 'border-gray-300'
                   }`}
-                  placeholder="Your message..."
+                  placeholder={t('contact.messagePlaceholder')}
                   aria-describedby={errors.message ? 'message-error' : undefined}
                   aria-invalid={!!errors.message}
                   required
@@ -247,11 +249,11 @@ const Contact = () => {
                 className="w-full px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-describedby={isSubmitting ? 'submitting-status' : undefined}
               >
-                {isSubmitting ? 'Sending...' : 'Send Message'}
+                {isSubmitting ? t('contact.sending') : t('contact.send')}
               </button>
               {isSubmitting && (
                 <p id="submitting-status" className="sr-only">
-                  Form is being submitted
+                  {t('contact.submittingStatus')}
                 </p>
               )}
             </form>
@@ -265,25 +267,33 @@ const Contact = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">
-              Contact Information
+              {t('contact.contactInfo')}
             </h2>
             
             <div className="space-y-8">
               <div>
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-2">
-                  Email
+                  {t('contact.email')}
                 </h3>
-                <a 
-                  href="mailto:your.email@example.com" 
-                  className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 rounded"
-                >
-                  your.email@example.com
-                </a>
+                <div className="space-y-2">
+                  <a 
+                    href="mailto:dwang9521@gmail.com" 
+                    className="block text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 rounded"
+                  >
+                    dwang9521@gmail.com
+                  </a>
+                  <a 
+                    href="mailto:wangd148@mcmaster.ca" 
+                    className="block text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 rounded"
+                  >
+                    wangd148@mcmaster.ca
+                  </a>
+                </div>
               </div>
 
               <div>
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
-                  Professional Links
+                  {t('contact.professionalLinks')}
                 </h3>
                 
                 <div className="space-y-3">
@@ -292,18 +302,18 @@ const Contact = () => {
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
-                    aria-label="Visit my GitHub profile (opens in new tab)"
+                    aria-label={t('contact.githubAria')}
                   >
                     <span className="text-2xl" aria-hidden="true">📁</span>
                     <span className="font-medium text-gray-700 dark:text-gray-300">GitHub</span>
                   </a>
                   
                   <a 
-                    href="https://linkedin.com" 
+                    href="https://www.linkedin.com/in/dwang-9521ddd/" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
-                    aria-label="Visit my LinkedIn profile (opens in new tab)"
+                    aria-label={t('contact.linkedinAria')}
                   >
                     <span className="text-2xl" aria-hidden="true">💼</span>
                     <span className="font-medium text-gray-700 dark:text-gray-300">LinkedIn</span>
@@ -313,23 +323,23 @@ const Contact = () => {
                     href="/resume.pdf" 
                     download
                     className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
-                    aria-label="Download my resume (PDF file)"
+                    aria-label={t('contact.resumeAria')}
                   >
                     <span className="text-2xl" aria-hidden="true">📄</span>
-                    <span className="font-medium text-gray-700 dark:text-gray-300">Download Resume</span>
+                    <span className="font-medium text-gray-700 dark:text-gray-300">{t('contact.downloadResume')}</span>
                   </a>
                 </div>
               </div>
 
               <div>
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-2">
-                  Location
+                  {t('contact.location')}
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 mb-1">
-                  [Your City, Country]
+                  Hamilton, ON, Canada
                 </p>
                 <p className="text-gray-600 dark:text-gray-300">
-                  Available for opportunities
+                  {t('contact.availability')}
                 </p>
               </div>
             </div>
