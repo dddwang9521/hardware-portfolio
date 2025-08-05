@@ -109,8 +109,7 @@ const CircuitBackground = () => {
     };
 
     const handleTouchStart = (e: TouchEvent) => {
-      const touch = e.touches[0];
-      
+      // Touch start event - no action needed currently
     };
 
     // Add event listeners for both mouse and touch
