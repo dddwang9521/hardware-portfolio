@@ -108,7 +108,7 @@ const CircuitBackground = () => {
       }
     };
 
-    const handleTouchStart = (e: TouchEvent) => {
+    const handleTouchStart = () => {
       // Touch start event - no action needed currently
     };
 
