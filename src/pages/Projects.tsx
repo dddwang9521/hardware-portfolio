@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ThreeDViewer from '../components/ThreeDViewer';
 import ImageModal from '../components/ImageModal';
 import { mappingXYZData } from '../data/xyzData';

@@ -54,7 +54,6 @@ const ThreeDViewer: React.FC<ThreeDViewerProps> = ({ xyzData, title = "3D Mappin
       const rangeX = bounds.maxX - bounds.minX;
       const rangeY = bounds.maxY - bounds.minY;
       const rangeZ = bounds.maxZ - bounds.minZ;
-      const maxRange = Math.max(rangeX, rangeY, rangeZ);
 
       // Normalize coordinates to [-1, 1] range
       const normalizedPoints = points.map(point => ({
