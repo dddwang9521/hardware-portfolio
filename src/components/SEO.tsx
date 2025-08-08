@@ -72,11 +72,7 @@ const SEO = ({
     if (typeof window !== 'undefined' && (window as any).gtag) {
       (window as any).gtag('config', 'G-GMTM749PNG', {
         page_title: title,
-        page_location: url + location.pathname,
-        custom_map: {
-          'custom_parameter_1': 'hardware_engineer',
-          'custom_parameter_2': 'embedded_systems'
-        }
+        page_location: url + location.pathname
       });
     }
   }, [title, description, keywords, image, url, location.pathname]);
