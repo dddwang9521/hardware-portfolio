@@ -10,7 +10,7 @@ interface SEOProps {
 }
 
 const SEO = ({ 
-  title = "David Wang - Hardware Engineer | Embedded Systems Specialist | Hamilton, ON",
+  title = "Di Wang - Hardware Engineer | Embedded Systems Specialist | Hamilton, ON",
   description = "Hardware engineer specializing in STM32, PCB design, and embedded systems. View my 3D mapping system, Bluetooth car, and drone projects. Based in Hamilton, Ontario.",
   keywords = "hardware engineer, embedded systems, STM32, PCB design, electrical engineering, Hamilton, Ontario, Canada",
   image = "https://ddwang.org/images/3d-mapping-prototype.png",
