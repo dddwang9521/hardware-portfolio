@@ -71,7 +71,7 @@
       // the correct url will be waiting in the browser's history for
       // the single page app to route accordingly.
       (function(l) {
-        if (l.search[1] === '/' ) {
+        if (l.search[1] === '/' && l.search.indexOf('~and~') === -1) {
           var decoded = l.search.slice(1).split('&').map(function(s) { 
             return s.replace(/~and~/g, '&')
           }).join('?');
@@ -80,14 +80,9 @@
           );
         }
       }(window.location))
-      
-      // Ensure home page loads by default
-      if (window.location.pathname === '/' || window.location.pathname === '') {
-        window.history.replaceState(null, null, '/');
-      }
     </script>
-    <script type="module" crossorigin src="/assets/index-DpjIwE6o.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-V6n42dtw.css">
+    <script type="module" crossorigin src="/assets/index-LLk3DR_W.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CqQnWZZA.css">
   </head>
   <body>
     <div id="root"></div>
