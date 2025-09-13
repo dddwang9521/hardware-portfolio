@@ -320,8 +320,8 @@ const Contact = () => {
                   </a>
                   
                   <a 
-                    href="/resume.pdf" 
-                    download
+                    href="/Di_Wang_Resume_2025.pdf" 
+                    download="Di_Wang_Resume_2025.pdf"
                     className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
                     aria-label={t('contact.resumeAria')}
                   >
