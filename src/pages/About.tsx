@@ -25,8 +25,7 @@ const About = () => {
           </h2>
           <div className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
             <p className="mb-2 text-gray-800 dark:text-gray-200">• {t('about.education.year')}</p>
-            <p className="mb-2 text-gray-800 dark:text-gray-200">• {t('about.education.focus')}</p>
-            <p className="mb-0 text-gray-800 dark:text-gray-200">• {t('about.education.gpa')}</p>
+            <p className="mb-0 text-gray-800 dark:text-gray-200">• {t('about.education.focus')}</p>
           </div>
         </div>
 

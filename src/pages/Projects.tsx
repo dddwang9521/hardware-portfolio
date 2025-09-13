@@ -229,29 +229,58 @@ const Projects = () => {
               <div className="lg:col-span-2">
                 <div className="flex items-center gap-4 mb-4">
                   <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
-                    Drone Project
+                    STM32-Based Quadcopter Flight Control System
                   </h2>
                   <span className="px-3 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-full text-sm font-semibold">
                     In Progress
                   </span>
                 </div>
                 <p className="text-gray-600 dark:text-gray-300 mb-4">
-                  Flight control system in development with STM32-based architecture.
+                  Advanced flight control system using STM32F103C8T6 microcontroller with ARM Cortex-M3 architecture. 
+                  Features real-time 4-axis control algorithms, dual joystick system, and comprehensive safety features 
+                  including emergency stop and multiple test modes for validation.
                 </p>
-                <div className="flex gap-2 flex-wrap">
+                <div className="flex gap-2 flex-wrap mb-4">
                   <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">
-                    STM32
+                    STM32F103C8T6
                   </span>
                   <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">
-                    Flight Control
+                    ARM Cortex-M3
                   </span>
                   <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">
-                    Motor Control
+                    4-Axis Control
                   </span>
+                  <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">
+                    PWM Motor Control
+                  </span>
+                  <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">
+                    NRF24L01
+                  </span>
+                  <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">
+                    OLED Display
+                  </span>
+                  <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">
+                    Flash Memory
+                  </span>
+                </div>
+                
+                <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 mb-4">
+                  <h4 className="font-semibold text-gray-800 dark:text-white mb-2">Technical Specifications:</h4>
+                  <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                    <li>• Real-time 4-axis control algorithms with quadcopter mixing mathematics</li>
+                    <li>• Dual joystick system with independent calibration and automatic voltage detection</li>
+                    <li>• Hardware PWM motor control for precise quadcopter movement</li>
+                    <li>• OLED display for real-time system status and configuration</li>
+                    <li>• NRF24L01 wireless communication for remote control</li>
+                    <li>• Flash memory integration for data storage and configuration</li>
+                    <li>• Comprehensive safety features including emergency stop and test modes</li>
+                    <li>• Hardware-software integration with real-time control algorithms</li>
+                  </ul>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
       </div>
       
