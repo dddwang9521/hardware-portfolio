@@ -37,6 +37,15 @@ const Contact = () => {
     setToast(prev => ({ ...prev, isVisible: false }));
   };
 
+  const handleResumeDownload = () => {
+    const link = document.createElement('a');
+    link.href = '/Di_Wang_Resume_2025.pdf';
+    link.download = 'Di_Wang_Resume_2025.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     
@@ -319,15 +328,14 @@ const Contact = () => {
                     <span className="font-medium text-gray-700 dark:text-gray-300">LinkedIn</span>
                   </a>
                   
-                  <a 
-                    href="/Di_Wang_Resume_2025.pdf" 
-                    download="Di_Wang_Resume_2025.pdf"
-                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                  <button 
+                    onClick={handleResumeDownload}
+                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 w-full text-left"
                     aria-label={t('contact.resumeAria')}
                   >
                     <span className="text-2xl" aria-hidden="true">📄</span>
                     <span className="font-medium text-gray-700 dark:text-gray-300">{t('contact.downloadResume')}</span>
-                  </a>
+                  </button>
                 </div>
               </div>
 
